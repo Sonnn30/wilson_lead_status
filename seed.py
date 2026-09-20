@@ -1,4 +1,3 @@
-# seed.py
 import pandas as pd
 from sqlalchemy import create_engine
 from dotenv import load_dotenv
@@ -30,7 +29,6 @@ df = df.rename(columns={
     "Lead Score"         : "lead_score"
 })
 
-# Konversi tipe data agar sesuai model
 df["lead_score"] = df["lead_score"].astype(str)  
 df["record_id"]  = df["record_id"].astype(int)
 

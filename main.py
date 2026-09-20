@@ -11,7 +11,6 @@ import csv
 import json
 from dedupe import find_dedupe_candidates, groq_client
 from dotenv import load_dotenv
-# ini biar bisa baca .env
 load_dotenv()
 
 app = FastAPI()
@@ -36,6 +35,7 @@ def get_leads(status: Optional[str] = Query(None, description="status"), owner: 
         query = query.filter(model.Lead.contact_owner == owner)
 
     if country:
+        country = country.lower()
         query = query.filter(model.Lead.country == country)
 
     if q:
@@ -216,12 +216,10 @@ def source(id: int, db: Session = Depends(get_db)):
 
     raw = response.choices[0].message.content.strip()
     
-    # Hapus markdown code block kalau LLM menambahkannya
     raw = raw.replace("```json", "").replace("```", "").strip()
     
     result = json.loads(raw)
 
-    # Validasi channel yang dikembalikan LLM
     if result["channel"] not in valid_channels:
         result["channel"] = "Other"
 

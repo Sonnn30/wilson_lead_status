@@ -4,7 +4,6 @@ from sqlalchemy.orm import relationship
 from datetime import datetime
 from pgvector.sqlalchemy import Vector
 
-# ini fungsinya agar sql alchemy bisa mengidentifikasi class ini adalah table
 Base = declarative_base()
 
 
@@ -37,7 +36,7 @@ class LeadEmbedding(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     lead_id = Column(Integer, ForeignKey("lead_seed.id"), unique=True, nullable=False)
-    embedding = Column(Vector(384))   # dimensi all-MiniLM-L6-v2
+    embedding = Column(Vector(384)) 
     lead_text = Column(String)
     created_at = Column(DateTime, default=datetime.now)
 
